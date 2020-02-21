@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h1>Lançamentos</h1>
+
+    </div>
+    <div class="ui-g-12 ui-fluid">
+      <label>Descrição</label>
+      <input pInputText type="text">
+
+    </div>
+
+    <div class="ui-g-12">
+      <!-- ao adicioanr o estilo display block, há uma quebra de linha -->
+      <label style="display: block;">Vencimento</label>
+      <input pInputText type="text" style="width: 95px;">
+
+      <label>Até</label>
+      <input pInputText type="text" style="width: 95px;">
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Pesquisar"></button>
+
+    </div>
+
+  </div>
+
+  <div class="ui-g">
+    <div class="ui-g-12">
+
+      <p-table [value]="lancamentos" [paginator]="true" [rows]=2 [responsive]="true">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Pessoa</th>
+                <th>Descricao</th>
+                <th class="col-data">Vencimento</th>
+                <th class="col-data">Pagamento</th>
+                <th class="col-valor">Valor</th>
+                <th class="col-acoes"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-lanca>
+            <tr>
+                <td>{{lanca.pessoa}}</td>
+                <td>{{lanca.descricao}}</td>
+                <td class="col-data">{{lanca.dataVencimento}}</td>
+                <td class="col-data">{{lanca.dataPagamento}}</td>
+                <td class="col-valor">
+                    <span [ngStyle]="{ color: lanca.tipo === 'DESPESA' ? 'red' : 'blue' }">{{lanca.valor}}</span>
+                </td>
+                <td class="col-acoes">
+                  <button pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top" style="margin-right: 5px;"></button>
+                  <button pButton icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+
+    <div class="ui-g-12">
+      <a pButton label="Novo Lançamento"></a>
+    </div>
+
+  </div>
+
+  </div>
