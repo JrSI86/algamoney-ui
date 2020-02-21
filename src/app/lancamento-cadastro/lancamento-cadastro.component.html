@@ -1,14 +1,68 @@
 <div class="container">
+
   <form>
     <div class="ui-g">
       <div class="ui-g-12">
         <h1>Novo Lançamento</h1>
       </div>
-
-      <div>
-        <label>Vencimento</label>
-        <input pInputText type="text">
+      <div class="ui-g-12">
+        <p-selectButton [options]="tipos" #tipo></p-selectButton>
       </div>
+
+      <div class="ui-g-6 ui-md-3 ui-fluid">
+        <label>Vencimento</label>
+        <p-calendar dateFormat="dd/mm/yy" name="vencimento"
+        #vencimento="ngModel" ngModel [showIcon]=true required></p-calendar>
+
+        <div *ngIf="vencimento.hasError('required') && vencimento.dirty">
+          <p-message severity="error" text="Informe uma data de vencimento"></p-message>
+          </div>
+      </div>
+      <div class="ui-g-6 ui-md-3 ui-fluid">
+        <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
+        <p-calendar dateFormat="dd/mm/yy"
+        [showIcon]=true></p-calendar>
+      </div>
+      <div class="ui-g-12 ui-md-9 ui-fluid">
+        <label>Descrição</label>
+        <input pInputText type="text" name="descricao"
+        ngModel #descricao="ngModel" required minlength="5">
+
+        <div *ngIf="descricao.hasError('required') && descricao.dirty">
+        <p-message severity="error" text="Informe uma descrição"></p-message>
+        </div>
+
+        <div *ngIf="descricao.hasError('minlength') && descricao.dirty">
+        <p-message severity="error"
+        text="Mínimo de {{ descricao.errors.minlength.requiredLength }} caracteres">
+        </p-message>
+
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-3 ui-fluid">
+        <label>valor</label>
+        <input pInputText type="text" placeholder="0,00" name="valor" currencyMask required
+        [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }" ngModel>
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label>Categoria</label>
+        <p-dropdown [options]="categorias" placeholder="Selecione"
+        [filter]="true"></p-dropdown>
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label>Pessoa</label>
+        <p-dropdown [options]="pessoas" placeholder="Selecione" name="pessoa"
+        required [filter]="true" ngModel></p-dropdown>
+      </div>
+      <div class="ui-g-12 ui-fluid">
+        <label>Observação</label>
+        <textarea pInputTextarea rows="3"></textarea>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Salvar" style="margin-right: 5px;"></button>
+      <button pButton type="button" label="Novo" class="ui-button-info" style="margin-right: 5px;"></button>
+      <a href="javascrip:;">Voltar para a pesquisa</a>
     </div>
   </form>
 </div>
