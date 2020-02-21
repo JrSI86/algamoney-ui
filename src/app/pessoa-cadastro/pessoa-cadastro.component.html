@@ -1,20 +1,42 @@
 <div class="container">
-  <form autocomplete="off">
+
+  <form #f="ngForm" autocomplete="off">
   <div class="ui-g">
     <div class="ui-g-12">
       <h1>Nova Pessoa</h1>
     </div>
     <div class="ui-g-12 ui-fluid">
       <label>Nome</label>
-      <input pInputText type="text">
+      <input pInputText type="text" name="nome" required minlength="5"
+      ngModel #nome="ngModel">
+
+      <div *ngIf="nome.hasError('required') && nome.dirty">
+        <p-message severity="error" text="Informe o nome"></p-message>
+        </div>
+
+        <div *ngIf="nome.hasError('minlength') && nome.dirty">
+        <p-message severity="error"
+        text="Mínimo de {{ nome.errors.minlength.requiredLength }} caracteres">
+        </p-message>
+        </div>
     </div>
     <div class="ui-g-12 ui-md-9 ui-fluid">
       <label>Logradouro</label>
-      <input pInputText type="text">
+      <input pInputText type="text" name="logradouro" required
+      ngModel #logradouro="ngModel">
+
+      <div *ngIf="logradouro.hasError('required') && logradouro.dirty">
+        <p-message severity="error" text="Informe o logradouro"></p-message>
+        </div>
     </div>
     <div class="ui-g-12 ui-md-3 ui-fluid">
       <label>Númenro</label>
-      <input pInputText type="text">
+      <input pInputText type="text" name="numero" required
+      ngModel #numero="ngModel">
+
+      <div *ngIf="numero.hasError('required') && numero.dirty">
+        <p-message severity="error" text="Informe o numero"></p-message>
+        </div>
     </div>
     <div class="ui-g-12 ui-md-4 ui-fluid">
       <label>Complemento</label>
@@ -22,23 +44,49 @@
     </div>
     <div class="ui-g-12 ui-md-4 ui-fluid">
       <label>Bairro</label>
-      <input pInputText type="text">
+      <input pInputText type="text" name="bairro" required
+      ngModel #bairro="ngModel">
+
+      <div *ngIf="bairro.hasError('required') && bairro.dirty">
+        <p-message severity="error" text="Informe o bairro"></p-message>
+        </div>
     </div>
     <div class="ui-g-12 ui-md-4 ui-fluid">
       <label>CEP</label>
-      <p-inputMask mask="99.999-999"></p-inputMask>
+      <p-inputMask mask="99.999-999" name="cep" required minlength="8"
+      ngModel #cep="ngModel"></p-inputMask>
+
+      <div *ngIf="cep.hasError('required') && cep.dirty">
+        <p-message severity="error" text="Informe o cep"></p-message>
+        </div>
+
+        <div *ngIf="cep.hasError('minlength') && cep.dirty">
+        <p-message severity="error"
+        text="Mínimo de {{ cep.errors.minlength.requiredLength }} caracteres">
+        </p-message>
+        </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-fluid">
       <label>cidade</label>
-      <input pInputText type="text">
+      <input pInputText type="text" name="cidade" required
+      ngModel #cidade="ngModel">
+      <div *ngIf="cidade.hasError('required') && cidade.dirty">
+        <p-message severity="error" text="Informe a cidade"></p-message>
+        </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-fluid">
       <label>Estado</label>
-      <input pInputText type="text">
+      <input pInputText type="text" name="estado" required minlength="8"
+      ngModel #estado="ngModel">
+
+      <div *ngIf="estado.hasError('required') && estado.dirty">
+        <p-message severity="error" text="Informe o estado"></p-message>
+        </div>
     </div>
   </div>
   <div class="ui-g-12">
-    <button pButton type="submit" label="Salvar" style="margin-right: 5px;"></button>
+    <button pButton type="submit" label="Salvar" style="margin-right: 5px;"
+    [disabled]="f.invalid"></button>
     <button pButton type="button" label="Nova" class="ui-button-info" style="margin-right: 5px;"></button>
     <a href="javascrip:;">Voltar para a pesquisa</a>
   </div>
