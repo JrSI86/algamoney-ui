@@ -28,6 +28,4 @@ export class LancamentoCadastroComponent {
 
     form.reset();
   }
-
-
 }
